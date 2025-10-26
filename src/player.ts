@@ -93,6 +93,7 @@ export class YouTubePlayer {
 			)
 		} else {
 			this.video.currentTime -= s ?? 5
+			return this.video.currentTime
 		}
 	}
 	fastforward(s?: number) {
@@ -108,6 +109,7 @@ export class YouTubePlayer {
 			)
 		} else {
 			this.video.currentTime += s ?? 5
+			return this.video.currentTime
 		}
 	}
 	oneFrameBack() {
@@ -164,6 +166,7 @@ export class YouTubePlayer {
 			)
 		} else {
 			this.video.playbackRate -= rate ?? 0.25
+			return this.video.playbackRate
 		}
 	}
 	increaseSpeed(rate?: number) {
@@ -183,8 +186,8 @@ export class YouTubePlayer {
 		}
 	}
 
-	volumeUp(increment = 0.1) {
-		if (!isShorts()) {
+	volumeUp(increment?: number) {
+		if (increment === undefined && !isShorts()) {
 			this.video.dispatchEvent(
 				new KeyboardEvent('keydown', {
 					key: 'ArrowUp',
@@ -195,12 +198,13 @@ export class YouTubePlayer {
 				}),
 			)
 		} else {
-			this.video.volume = Math.min(1, this.video.volume + increment)
+			this.video.volume = Math.min(1, this.video.volume + (increment ?? 0.2))
+			return this.video.volume
 		}
 	}
 
-	volumeDown(increment = 0.1) {
-		if (!isShorts()) {
+	volumeDown(increment?: number) {
+		if (increment === undefined && !isShorts()) {
 			this.video.dispatchEvent(
 				new KeyboardEvent('keydown', {
 					key: 'ArrowDown',
@@ -211,7 +215,8 @@ export class YouTubePlayer {
 				}),
 			)
 		} else {
-			this.video.volume = Math.max(0, this.video.volume - increment)
+			this.video.volume = Math.max(0, this.video.volume - (increment ?? 0.2))
+			return this.video.volume
 		}
 	}
 
