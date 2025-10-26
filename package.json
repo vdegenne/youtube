@@ -1,0 +1,39 @@
+{
+	"name": "@vdegenne/youtube",
+	"version": "0.1.0",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./lib/index.js",
+			"types": "./lib/index.d.ts"
+		},
+		"./player.js": {
+			"import": "./lib/player.js",
+			"types": "./lib/player.d.ts"
+		}
+	},
+	"files": [
+		"./lib"
+	],
+	"scripts": {
+		"build": "wireit"
+	},
+	"devDependencies": {
+		"typescript": "^5.9.3",
+		"wireit": "^0.14.12"
+	},
+	"wireit": {
+		"build": {
+			"command": "tsc --pretty",
+			"clean": "if-file-deleted",
+			"files": [
+				"./tsconfig.json",
+				"./src"
+			],
+			"output": [
+				"./lib"
+			]
+		}
+	}
+}
+
