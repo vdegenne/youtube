@@ -220,7 +220,7 @@ export class YouTubePlayer {
 			document.exitFullscreen()
 		} else {
 			// this.videoElement.requestFullscreen()
-			this.video.querySelector<HTMLElement>('.ytp-fullscreen-button')?.click()
+			document.querySelector<HTMLElement>('.ytp-fullscreen-button')?.click()
 		}
 		if (resume) {
 			this.play()
