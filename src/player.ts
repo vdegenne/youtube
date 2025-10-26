@@ -183,6 +183,7 @@ export class YouTubePlayer {
 			)
 		} else {
 			this.video.playbackRate += rate ?? 0.25
+			return this.video.playbackRate
 		}
 	}
 
