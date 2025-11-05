@@ -86,3 +86,69 @@ export function nextShort() {
 	}
 	return false
 }
+
+export function isValidYouTubeUrl(url: string): boolean {
+	try {
+		const parsed = new URL(url)
+
+		if (
+			!['youtube.com', 'www.youtube.com', 'youtu.be'].includes(parsed.hostname)
+		) {
+			return false
+		}
+
+		if (parsed.hostname === 'youtu.be') {
+			return !!parsed.pathname.slice(1)
+		}
+
+		if (parsed.hostname.includes('youtube.com')) {
+			const videoId = parsed.searchParams.get('v')
+			if (videoId && /^[\w-]{11}$/.test(videoId)) return true
+
+			// support /shorts/<id>
+			const pathParts = parsed.pathname.split('/')
+			const shortId = pathParts[pathParts.indexOf('shorts') + 1]
+			return !!shortId && /^[\w-]{11}$/.test(shortId)
+		}
+
+		return false
+	} catch {
+		return false
+	}
+}
+
+export function extractYouTubeId(input: string): string | null {
+	if (!input) return null
+
+	// Case 1: it's already an ID
+	if (/^[\w-]{11}$/.test(input)) {
+		return input
+	}
+
+	try {
+		const url = new URL(input)
+
+		if (url.hostname === 'youtu.be') {
+			const id = url.pathname.slice(1)
+			return /^[\w-]{11}$/.test(id) ? id : null
+		}
+
+		if (url.hostname.includes('youtube.com')) {
+			const id = url.searchParams.get('v')
+			if (id && /^[\w-]{11}$/.test(id)) return id
+
+			const parts = url.pathname.split('/')
+			const shortsIndex = parts.indexOf('shorts')
+			if (shortsIndex !== -1) {
+				const shortId = parts[shortsIndex + 1]
+				if (shortId && /^[\w-]{11}$/.test(shortId)) {
+					return shortId
+				}
+			}
+		}
+
+		return null
+	} catch {
+		return null
+	}
+}
