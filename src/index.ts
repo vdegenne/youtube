@@ -59,7 +59,7 @@ export function getHidablePlayerElements() {
 	const moviePlayer = document.querySelector('#movie_player')
 	if (moviePlayer) {
 		return moviePlayer.querySelectorAll<HTMLElement>(
-			'.ytp-chrome-bottom, .ytp-gradient-bottom, .ytp-player-content, .ytp-gradient-top, .ytp-chrome-top, .ytp-overlay-top-left, .ytp-chrome-bottom',
+			'.ytp-chrome-bottom, .ytp-gradient-bottom, .ytp-player-content, .ytp-gradient-top, .ytp-chrome-top, .ytp-overlay-top-left, .ytp-chrome-bottom, .ytp-overlay-bottom-right',
 		)
 	}
 	return []
