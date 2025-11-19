@@ -152,3 +152,12 @@ export function extractYouTubeId(input: string): string | null {
 		return null
 	}
 }
+
+export function toggleSubtitles() {
+	const button = document.querySelector<HTMLElement>(
+		'.ytp-subtitles-button-icon',
+	)
+	if (button) {
+		button.click()
+	}
+}

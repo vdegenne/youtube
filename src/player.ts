@@ -1,4 +1,4 @@
-import {getHidablePlayerElements, isShorts} from './index.js'
+import {getHidablePlayerElements, isShorts, toggleSubtitles} from './index.js'
 
 export const PlayerState = {
 	UNSTARTED: -1,
@@ -234,6 +234,6 @@ export class YouTubePlayer {
 	}
 
 	toggleSubtitles() {
-		this.video.querySelector<HTMLElement>('.ytp-subtitles-button')?.click()
+		toggleSubtitles()
 	}
 }
