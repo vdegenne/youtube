@@ -153,6 +153,10 @@ export function extractYouTubeId(input: string): string | null {
 	}
 }
 
+export function buildYouTubeUrl(id: string): string {
+	return `https://www.youtube.com/watch?v=${id}`
+}
+
 export function toggleSubtitles() {
 	const button = document.querySelector<HTMLElement>(
 		'.ytp-subtitles-button-icon',
