@@ -153,8 +153,9 @@ export function extractYouTubeId(input: string): string | null {
 	}
 }
 
-export function buildYouTubeUrl(id: string, time: number): string {
-	return `https://www.youtube.com/watch?v=${id}&t=${Math.floor(time)}s`
+export function buildYouTubeUrl(id: string, time?: number): string {
+	const t = Math.floor(time || 0)
+	return `https://www.youtube.com/watch?v=${id}${t ? `&t=${t}s` : ''}`
 }
 
 export function toggleSubtitles() {
