@@ -120,7 +120,7 @@ export function isValidYouTubeUrl(url: string): boolean {
 export function extractYouTubeId(input: string): string | null {
 	if (!input) return null
 
-	// Case 1: it's already an ID
+	// Case 1: already an ID
 	if (/^[\w-]{11}$/.test(input)) {
 		return input
 	}
@@ -134,16 +134,24 @@ export function extractYouTubeId(input: string): string | null {
 		}
 
 		if (url.hostname.includes('youtube.com')) {
+			// ?v=
 			const id = url.searchParams.get('v')
 			if (id && /^[\w-]{11}$/.test(id)) return id
 
-			const parts = url.pathname.split('/')
+			const parts = url.pathname.split('/').filter(Boolean)
+
+			// /shorts/{id}
 			const shortsIndex = parts.indexOf('shorts')
 			if (shortsIndex !== -1) {
 				const shortId = parts[shortsIndex + 1]
-				if (shortId && /^[\w-]{11}$/.test(shortId)) {
-					return shortId
-				}
+				if (shortId && /^[\w-]{11}$/.test(shortId)) return shortId
+			}
+
+			// /live/{id}
+			const liveIndex = parts.indexOf('live')
+			if (liveIndex !== -1) {
+				const liveId = parts[liveIndex + 1]
+				if (liveId && /^[\w-]{11}$/.test(liveId)) return liveId
 			}
 		}
 
