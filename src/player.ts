@@ -221,15 +221,12 @@ export class YouTubePlayer {
 		}
 	}
 
-	fullscreen(resume = true) {
+	fullscreen() {
 		if (document.fullscreenElement) {
 			document.exitFullscreen()
 		} else {
 			// this.videoElement.requestFullscreen()
 			document.querySelector<HTMLElement>('.ytp-fullscreen-button')?.click()
-		}
-		if (resume) {
-			this.play()
 		}
 	}
 
